@@ -1,6 +1,7 @@
 package test;
 
 import model.Client;
+import model.Wallet;
 
 public class Test {
 
@@ -13,8 +14,10 @@ public class Test {
         Client cliente1 = new Client("Esteban");
         
         boolean test1 = assertEquals("Esteban", cliente1.getNombre());
+        boolean test2 = assertNotNull(cliente1.getWallet());
         //(condition)? responseTrue: responseFalse
-        System.out.println( (test1)? "Paso la prueba de nombre":"Error el nombre no es igual" );
+        System.out.println( (test1)? "Paso la prueba de nombre":"Error, el nombre no es igual" );
+        System.out.println( (test2)? "Paso la prueba de wallet":"Error, la Wallet no existe" );
     }
 
     public boolean assertEquals(String expected, String received) {
