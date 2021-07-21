@@ -1,5 +1,4 @@
 package model;
-
 public class Presupuesto {
     private int pTiempo;
     private double pMonto;
