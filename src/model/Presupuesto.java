@@ -12,7 +12,7 @@ public class Presupuesto {
         pInteres = 0;
         respuesta=0;
     }
-    //coment
+    //come
     public double getinteresSimple(int pTiempo,double pMonto,double pInteres){
         return pMonto*pInteres*pTiempo;
     }
