@@ -47,6 +47,6 @@ public class Transaction {
     }
 
     public String toString(){
-        return "Monto: $"+amount+ ", Fecha: "+fecha+ ", Tipo: "+((type==1)?"Ingreso":"Egreso")+ ", Descripción: "+description;
+        return "Monto: $"+amount+ ", Fecha: "+fecha+ ", Tipo: "+((type==1)?"Ingreso":"Egreso")+ ", Descripcion: "+description;
     }
 }

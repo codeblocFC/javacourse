@@ -1,6 +1,9 @@
 package model;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Wallet {
 
@@ -103,6 +106,24 @@ public class Wallet {
     public void displayMovimientos(){
         for (Transaction movimiento : movimientos) {
             System.out.println(movimiento);
+        }
+    }
+
+    public void generarRegistro(){
+        try {
+            OutputStream ous = new FileOutputStream("./data/trans.properties");
+            Properties prop = new Properties();
+            int i=1;
+            for (Transaction movimiento : movimientos) {
+                System.out.println(movimiento);
+                prop.setProperty(i + "",movimiento.toString()+"");
+                i++;       
+            }
+            prop.store(ous, null);
+            System.out.println(prop);
+        }
+         catch (Exception e) {
+            //TODO: handle exception
         }
     }
 }

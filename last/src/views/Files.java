@@ -6,27 +6,22 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import model.Client;
+import model.Transaction;
+
 public class Files {
 
     public static void main(String[] args) {
         
-        try {
-            InputStream ins = new FileInputStream("./data/data.properties");
-
-            Properties prop = new Properties();
-
-            prop.load(ins);
-
-            //System.out.println(prop.getProperty("8"));
-
-            //por cada elemento de prop mostrar key y value
-            prop.forEach((key, value) -> System.out.println(key + " " + value));            
-
-            // System.out.println(prop.getProperty("58numero"));
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+            Client customer1 = new Client("Marco");           
+            System.out.println(customer1.getWallet().saveMoney(30000));
+            System.out.println(customer1.getWallet().breakLimit());
+            System.out.println(customer1.getWallet().saveMoney(15000));
+            System.out.println(customer1.getWallet().takeMoney(20000));
+            customer1.getWallet().displayMovimientos();
+            System.out.println(customer1.getWallet());
+            customer1.getWallet().generarRegistro();
+            
         /*
         try {
 
