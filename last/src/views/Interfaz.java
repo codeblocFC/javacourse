@@ -3,18 +3,20 @@ package views;
 import javax.swing.JFrame;
 
 import controller.Controlador;
+import model.Client;
 
 import java.awt.BorderLayout;
 
-
-public class Interfaz extends JFrame{
+public class Interfaz extends JFrame {
 
     private PanelOpciones panelOpciones;
+    private PanelClientes panelClientes;
+
     private Controlador controlador;
 
     public Interfaz() {
         super();
-        setSize(600,450);
+        setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setTitle("Wallet");
@@ -22,21 +24,27 @@ public class Interfaz extends JFrame{
 
         controlador = new Controlador();
 
-        //panelOpciones=new PanelOpciones();
-        panelOpciones=new PanelOpciones(this); //muestraventana en medio del frame interfaz
-        add(panelOpciones,BorderLayout.SOUTH);
+        // panelOpciones=new PanelOpciones();
+        panelOpciones = new PanelOpciones(this); // muestraventana en medio del frame interfaz
+        panelClientes = new PanelClientes(this);
+        add(panelOpciones, BorderLayout.SOUTH);
+        add(panelClientes, BorderLayout.WEST);
     }
 
-    public void addClient(String nombre){
+    public void addClient(String nombre) {
         controlador.addClient(nombre);
     }
 
-    public String listarClientes(){
+    public String listarClientes() {
         return controlador.listarClientes();
     }
 
+    public void updateList(){
+        panelClientes.updateList((controlador.getClientsNames()));
+    }
+
     public static void main(String[] args) {
-    Interfaz vistaPrincipal=new Interfaz();
-    vistaPrincipal.setVisible(true);
+        Interfaz vistaPrincipal = new Interfaz();
+        vistaPrincipal.setVisible(true);
     }
 }
