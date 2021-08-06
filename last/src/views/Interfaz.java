@@ -33,6 +33,8 @@ public class Interfaz extends JFrame {
 
     public void addClient(String nombre) {
         controlador.addClient(nombre);
+        
+
     }
 
     public String listarClientes() {
@@ -40,7 +42,7 @@ public class Interfaz extends JFrame {
     }
 
     public void updateList(){
-        panelClientes.updateList((controlador.getClientsNames()));
+        panelClientes.updateList((controlador.getClientsData()));
     }
 
     public static void main(String[] args) {
