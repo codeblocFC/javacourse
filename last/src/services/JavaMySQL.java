@@ -9,6 +9,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import model.Wallet;
+
 import java.sql.Statement;
 
 public class JavaMySQL {
@@ -56,28 +59,46 @@ public class JavaMySQL {
     }
     public void insertUser(String nombre) {
         String sql="INSERT INTO `users` (`name`,`user_status`) VALUES ('"+nombre+"',1)";
-        try {
-            Statement stmt=connect.createStatement();
-            stmt.executeUpdate(sql);
-
-        } catch (SQLException e) {
-            //TODO: handle exception
-            e.printStackTrace();
-        }
+        executeInsertStatement(sql);
+        insertWallet();
         
     }
 
+    public void insertWallet(){
+        String sql= "INSERT INTO `wallets`(`user_id`) SELECT MAX(id) FROM users";
+        executeInsertStatement(sql);
+    }
+
     public ResultSet getUserDB(){
-        ResultSet rs= null;
         String sql="SELECT  * FROM users";
+        return executeQueryStatemen(sql);
+    }
+
+    public ResultSet getWalletUser(int id){
+        String sql="SELECT * FROM wallets WHERE user_id = "+ id;
+        return executeQueryStatemen(sql);
+
+    }
+
+    public ResultSet executeQueryStatemen(String sql){
+        ResultSet rs= null;
         try {
             Statement stmt=connect.createStatement();
             rs=stmt.executeQuery(sql);
         } catch (SQLException e) {
-            //TODO: handle exception
             e.printStackTrace();
         }
         return rs;
+    }
+
+    public void executeInsertStatement(String sql){
+        try {
+            Statement stmt=connect.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+               e.printStackTrace();
+        }
+        
     }
 
     public Connection getConnect() {

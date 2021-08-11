@@ -9,6 +9,7 @@ public class Wallet {
 
     public static final int CAPACIDAD_MAXIMA = 1000000;
 
+    private int id;
     private int saldo;
     private boolean tieneLimite;
     private int meta;
@@ -30,11 +31,20 @@ public class Wallet {
     public int getSaldo(){
         return saldo;
     }
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
 
     public boolean getTieneLimite(){
         return tieneLimite;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public boolean establecerMeta(int value){
         if(value==0){
             meta = value;

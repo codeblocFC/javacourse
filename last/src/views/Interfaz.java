@@ -1,16 +1,18 @@
 package views;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import controller.Controlador;
-import model.Client;
-
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class Interfaz extends JFrame {
 
     private PanelOpciones panelOpciones;
     private PanelClientes panelClientes;
+    private PanelWallet panelWallet;
+    private PanelTransactions panelTransactions;
 
     private Controlador controlador;
 
@@ -27,8 +29,18 @@ public class Interfaz extends JFrame {
         // panelOpciones=new PanelOpciones();
         panelOpciones = new PanelOpciones(this); // muestraventana en medio del frame interfaz
         panelClientes = new PanelClientes(this);
+        panelWallet= new PanelWallet(this);
+        panelTransactions= new PanelTransactions(this);
+
+        JPanel panelCentral = new JPanel();
+        panelCentral.setLayout(new GridLayout(1,3));
+        panelCentral.add(panelClientes);
+        panelCentral.add(panelWallet);
+        panelCentral.add(panelTransactions);
+
         add(panelOpciones, BorderLayout.SOUTH);
-        add(panelClientes, BorderLayout.WEST);
+        add(panelCentral, BorderLayout.CENTER);
+        updateList();
     }
 
     public void addClient(String nombre) {
@@ -43,6 +55,10 @@ public class Interfaz extends JFrame {
 
     public void updateList(){
         panelClientes.updateList((controlador.getClientsData()));
+    }
+
+    public void getWalletUser(int id){
+        panelWallet.updateWallet(controlador.getWalletUser(id).getWallet());
     }
 
     public static void main(String[] args) {
