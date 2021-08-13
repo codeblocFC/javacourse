@@ -28,59 +28,72 @@ public class Wallet {
         movimientos = new ArrayList<>();
     }
 
-    public int getSaldo(){
+    public ArrayList<Transaction> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(ArrayList<Transaction> movimientos) {
+        this.movimientos = movimientos;
+    }
+
+    public int getSaldo() {
         return saldo;
     }
+
     public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
 
-    public boolean getTieneLimite(){
+    public boolean getTieneLimite() {
         return tieneLimite;
     }
 
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
-    public boolean establecerMeta(int value){
-        if(value==0){
+
+    public boolean establecerMeta(int value) {
+        if (value == 0) {
             meta = value;
             return true;
-        }        
-        if(value < 0 || value <= saldo || (value > CAPACIDAD_MAXIMA && tieneLimite)){
+        }
+        if (value < 0 || value <= saldo || (value > CAPACIDAD_MAXIMA && tieneLimite)) {
             return false;
-        }        
+        }
         meta = value;
         return true;
     }
 
-    public boolean verificarMeta(){
-        if(meta == 0 || saldo < meta){
+    public boolean verificarMeta() {
+        if (meta == 0 || saldo < meta) {
             return false;
         }
         return true;
     }
 
-    public void setTieneLimite(boolean newTieneLimite){
+    public void setTieneLimite(boolean newTieneLimite) {
         this.tieneLimite = newTieneLimite;
     }
 
-    public String saveMoney(int value){
+    public String saveMoney(int value) {
         if (saldo + value > CAPACIDAD_MAXIMA && tieneLimite) {
             return "No se puede superar el limite " + CAPACIDAD_MAXIMA;
         }
         saldo += value; // saldo = saldo + value
         Transaction ingreso = new Transaction(value, "hoy", 1, "Ingreso de dinero");
         movimientos.add(ingreso);
-        if(verificarMeta()){System.out.println("Has cumplido la meta!");}
+        if (verificarMeta()) {
+            System.out.println("Has cumplido la meta!");
+        }
         return "Transacción exitosa, nuevo saldo " + saldo;
     }
-    
-    public String takeMoney(int value){
-        if(saldo >= value){
+
+    public String takeMoney(int value) {
+        if (saldo >= value) {
             saldo -= value;
             Transaction retiro = new Transaction(value, "hoy", 2, "Retiro de dinero");
             movimientos.add(retiro);
@@ -89,11 +102,11 @@ public class Wallet {
         return "Saldo insuficiente";
     }
 
-    public String breakLimit(){
-        if(!tieneLimite){
+    public String breakLimit() {
+        if (!tieneLimite) {
             return "Tu cuenta no tiene limites!";
         }
-        if(saldo >= 10000){
+        if (saldo >= 10000) {
             saldo -= 10000;
             setTieneLimite(false); // tieneLimite = false;
             Transaction limite = new Transaction(10000, "hoy", 2, "Romper limites");
@@ -104,36 +117,35 @@ public class Wallet {
     }
 
     public String compararCuenta(Wallet otraWallet) {
-        if(saldo == otraWallet.getSaldo()){
+        if (saldo == otraWallet.getSaldo()) {
             return "Las cuentas tienen en mismo saldo";
         }
-        if(saldo > otraWallet.getSaldo()){
+        if (saldo > otraWallet.getSaldo()) {
             return "La primera cuenta es mayor";
         }
         return "La segunda cuenta es mayor";
     }
 
-    public void displayMovimientos(){
+    public void displayMovimientos() {
         for (Transaction movimiento : movimientos) {
             System.out.println(movimiento);
         }
     }
 
-    public void generarRegistro(){
+    public void generarRegistro() {
         try {
             OutputStream ous = new FileOutputStream("./data/trans.properties");
             Properties prop = new Properties();
-            int i=1;
+            int i = 1;
             for (Transaction movimiento : movimientos) {
                 System.out.println(movimiento);
-                prop.setProperty(i + "",movimiento.toString()+"");
-                i++;       
+                prop.setProperty(i + "", movimiento.toString() + "");
+                i++;
             }
             prop.store(ous, null);
             System.out.println(prop);
-        }
-         catch (Exception e) {
-            //TODO: handle exception
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 }

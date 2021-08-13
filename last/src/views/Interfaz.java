@@ -1,6 +1,7 @@
 package views;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.Controlador;
@@ -29,11 +30,11 @@ public class Interfaz extends JFrame {
         // panelOpciones=new PanelOpciones();
         panelOpciones = new PanelOpciones(this); // muestraventana en medio del frame interfaz
         panelClientes = new PanelClientes(this);
-        panelWallet= new PanelWallet(this);
-        panelTransactions= new PanelTransactions(this);
+        panelWallet = new PanelWallet(this);
+        panelTransactions = new PanelTransactions(this);
 
         JPanel panelCentral = new JPanel();
-        panelCentral.setLayout(new GridLayout(1,3));
+        panelCentral.setLayout(new GridLayout(1, 3));
         panelCentral.add(panelClientes);
         panelCentral.add(panelWallet);
         panelCentral.add(panelTransactions);
@@ -45,20 +46,41 @@ public class Interfaz extends JFrame {
 
     public void addClient(String nombre) {
         controlador.addClient(nombre);
-        
-
     }
 
     public String listarClientes() {
         return controlador.listarClientes();
     }
 
-    public void updateList(){
+    public void updateList() {
         panelClientes.updateList((controlador.getClientsData()));
     }
 
-    public void getWalletUser(int id){
+    public void getWalletUser(int id) {
         panelWallet.updateWallet(controlador.getWalletUser(id).getWallet());
+        fillTransactionsData(id);
+    }
+
+    public void fillTransactionsData(int id) {
+        panelWallet.updateWallet(controlador.getWalletUser(id).getWallet());
+        updateTransactionsList(id);
+
+    }
+
+    public void updateTransactionsList(int id) {
+        panelTransactions.updateTransactions(controlador.getDataTransactions(id));
+
+    }
+
+    public void insertTransaction(int type, int value) {
+        if (panelClientes.getActiveUser() == -1) {
+            JOptionPane.showMessageDialog(this, "Debes selecionar un cliente primero");
+        } else {
+            int id = controlador.getClientes().get(panelClientes.getActiveUser()).getWallet().getId();
+            controlador.insertTransaction(id, type, value);
+            updateTransactionsList(id);
+        }
+
     }
 
     public static void main(String[] args) {

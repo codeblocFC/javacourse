@@ -32,9 +32,10 @@ public class Producto {
 
     public void name(){
         Producto p1=new Producto();
-        System.out.println(getCiudad());
+        System.out.println(p1.getCiudad());
         System.out.println(getValor());
 
         Producto p2= new Producto("Ibague");
+        System.out.println(p2.getCiudad());
     }
 }

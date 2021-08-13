@@ -21,5 +21,8 @@ public class PanelTransactions extends JPanel{
 
         add(listaTransacciones);
     }
-    
+    public void updateTransactions(String[] listadoTransactions) {
+        listaTransacciones.setListData(listadoTransactions);
+        
+    }
 }

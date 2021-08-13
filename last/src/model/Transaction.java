@@ -15,8 +15,8 @@ public class Transaction {
      * Metodo que construye un objeto de la clase Transaction <br>
      * 
      * @param amount valor del movimiento
-     * @param fecha fecha en la cual se realiza el movimiento
-     * @param type tipo de movimiento, 1 == ingreso, 2 == retiro
+     * @param fecha  fecha en la cual se realiza el movimiento
+     * @param type   tipo de movimiento, 1 == ingreso, 2 == retiro
      */
     public Transaction(int amount, String fecha, int type, String description) {
         super();
@@ -28,6 +28,7 @@ public class Transaction {
 
     /**
      * Retorna el valor del movimiento
+     * 
      * @return amount
      */
     public int getAmount() {
@@ -46,7 +47,8 @@ public class Transaction {
         return description;
     }
 
-    public String toString(){
-        return "Monto: $"+amount+ ", Fecha: "+fecha+ ", Tipo: "+((type==1)?"Ingreso":"Egreso")+ ", Descripcion: "+description;
+    public String toString() {
+        return "Monto: $" + amount + ", Fecha: " + fecha + ", Tipo: " + ((type == 1) ? "Ingreso" : "Egreso")
+                + ", Descripcion: " + description;
     }
 }
